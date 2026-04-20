@@ -2,180 +2,146 @@
 
 ## What It Is
 
-A lightweight resident CRM for KÜ (korteriühistu) chairmen. Replaces WhatsApp, Excel, and paper notices in the stairwell. Designed for volunteer chairmen who do this work for free and need to spend less time on it.
+A modern resident CRM and building management platform for KÜ (korteriühistu) chairmen. Matches Korto's core features, wins on AI-powered chairman tools, and is simple enough for anyone to onboard in 15 minutes.
 
-## Target Market
+## Positioning
+
+> "Korto for people who gave up on Korto. Same features, modern UX, AI built in from day one."
+
+Korto has been around since 2005 and covers the market — but plenty of chairmen still don't use it. The gap isn't features, it's complexity, onboarding friction, and zero AI/CRM layer. We are the alternative for everyone who looked at Korto and said "not for me."
+
+## Target Users
+
+- **Primary:** Self-managing KÜ chairmen (volunteer, unpaid or minimally paid, non-technical)
+- **Secondary:** Haldusfirmad (management companies) managing multiple buildings
+- **Phase 3:** Residents via companion mobile app
+
+## Market
 
 - ~10,000-16,000 apartment associations in Estonia
-- Primary user: volunteer chairman / board member
-- Most buildings: 20-60 apartments, Soviet-era blocks
-- 97% home ownership rate in Estonia
-- Existing tools (Korto, Ühekatuseall, Digimaja, Profit KÜ) are all accounting-first and outdated
+- ~50-80 new KÜs formed per year from new construction
+- 97% home ownership rate
+- One real competitor: Korto (since 2005, accounting-first, complex onboarding)
+- Estonian + Russian equally polished from day 1 (critical for Lasnamäe, Mustamäe, Ida-Virumaa)
 
-## Pricing Model
+## Pricing
 
 - €0.30/apartment/month
 - 40-apartment building = €12/month (paid from KÜ budget, not chairman's pocket)
-- 3-month free trial
-- Revenue target: 500 KÜs x 40 avg apartments x €0.30 = €6,000/month = €72K/year
+- 6 months free for buildings onboarded via developer partnerships
+- 3-month free trial for direct signups
+- Revenue target: 500 KÜs × 40 avg apartments × €0.30 = €6,000/month = €72K/year
 
 ## Tech Stack
 
-- Next.js (frontend + API)
-- PostgreSQL (Supabase or Neon)
-- Auth: email magic link (no passwords — simplest for non-technical users)
-- SMS: Messente API (Estonian provider, ~€0.03/SMS)
-- Email: Resend or Postmark
-- Hosting: Vercel
-- Languages: Estonian + Russian from day 1
-- Running cost: under €30/month until 50+ paying KÜs
+- **Frontend + API:** Next.js
+- **Database:** Supabase (PostgreSQL)
+- **Auth:** Email magic link (no passwords — simplest for non-technical users)
+- **AI:** Claude API (smart replies, auto-fill, interaction summaries)
+- **SMS:** Messente API (~€0.03/SMS, Estonian provider)
+- **Email:** Resend or Postmark
+- **Hosting:** Vercel
+- **Languages:** Estonian + Russian from day 1
+- **Running cost:** Under €30/month until 50+ paying KÜs
 
 ---
 
-## Feature Priority (Based on Real Chairman Feedback)
+## The Three Pillars
 
-### Priority 1: Resident CRM with Instant Lookup
+### Pillar 1: Match Korto's Core Features (Table Stakes)
 
-The core of the product. Every resident has a card with full context.
+Must exist to be taken seriously. Not better than Korto — just present and working.
 
-**Resident card contains:**
-- Name, apartment number, m², ownership share %
-- Phone, email, preferred contact method
-- Payment status (paid / debtor / months behind)
-- Full interaction history (every message sent/received, every complaint, every request with dates)
-- Chairman's private notes (e.g., "always complains about parking", "agreed to pay by March")
-- Quick actions: send SMS, send email from template, mark as debtor
+- Announcements with email + SMS delivery
+- Meter readings (residents submit, chairman sees)
+- Invoice view per resident
+- Document storage (protocols, contracts, annual reports)
+- Voting + auto-generated protocols
+- Resident and apartment cards
 
-**Search by:** name, apartment number, phone, car plate number
+### Pillar 2: Win on AI Layer (Our Differentiator)
 
-**Custom linked lists (flexible data per building):**
-- Core: Apartments <-> Residents (always there, standard)
-- Vehicles: plate number, make, color -> linked to resident
-- MVP allows 1-2 additional custom lists chairman can create:
-  - Storage rooms -> linked to apartment
-  - Electronic keys -> linked to resident
-  - Gate remote IDs -> linked to resident
-  - Parking spots -> linked to apartment
-  - Whatever this specific building needs
+What Korto doesn't have. Why chairmen switch.
 
-**Lookup flow:**
-See a car plate -> search -> instantly see: owner, apartment, phone, debts, last complaints, one click to call or SMS. No digging through separate Excel files.
+- **Instant universal search** — type car plate, name, phone, apartment number → see everything related instantly. No menus, no navigation.
+- **Resident context panel** — when a resident contacts you, see their full history: last messages, outstanding debts, previous complaints, notes — all in one place before you reply
+- **Smart reply templates with auto-fill** — answer a question once, reuse forever. System auto-inserts this resident's name, m², current tariff, calculated amount, previous amount, difference, date of last change
+- **Delayed send** — draft a reply instantly, schedule it to send later. Resident thinks you carefully considered their complaint overnight.
+- **Interaction log per resident** — every message, call note, complaint, request logged with timestamp. Legal protection + "I answered you on March 14 at 11:23"
+- **Custom linked lists** — every building is different. Chairman creates their own lists (car plates, storage rooms, gate remote IDs, electronic keys, parking spots) and links them to apartments or residents. Search across all lists simultaneously.
+- **AI-suggested replies** — based on the incoming message and resident history, AI suggests a response using past answers as templates
 
-**Why:** Pavel Zujev's detailed feedback. Currently everything is in separate Excel files. Every resident interaction requires manually searching through multiple spreadsheets.
+### Pillar 3: Win on Simplicity (Our Moat Against Korto's Complexity)
 
-### Priority 2: Interaction History Per Resident
+- Onboarding in 15 minutes — no accounting knowledge required
+- No mandatory accounting setup before you can use the tool
+- AI-guided setup: "What's your building address? How many apartments?" — app does the rest
+- Mobile-first responsive design (works on phone without a dedicated app)
+- Clean, modern UI — not a 2005 design refreshed
 
-Every message, email, call note, complaint — logged with timestamp under the resident's card.
+---
 
-**Why:** Константин Иванов's point — "your phone answer can't be attached to a case. There's a question, give an answer, and it's documented." Also helps with "difficult residents" — harder to argue when chairman can say "I answered you on March 14 at 11:23."
+## Feature Priority (Build Order)
 
-### Priority 3: Smart Reply with Data Auto-Fill
+### Week 1: Core Data Layer
+- Auth (email magic link)
+- Building setup wizard (address, apartments, m² per apartment)
+- Resident directory with apartment cards
+- Search: name, apartment number, phone, car plate
+- Custom linked lists (create list → define fields → link to apartment/resident)
 
-Chairman's knowledge base — not a FAQ for residents, but a tool to help the chairman answer faster.
+### Week 2: Communications
+- Announcements with filters (all / by stairwell / by floor / by apartment size)
+- Email delivery with read receipts
+- SMS fallback for unread announcements
+- Announcement archive
 
-**How it works:**
-- Chairman answers a question once about tariffs, repair fund, rules
-- System saves it as a reusable reply
-- Next time someone asks the same thing — 2 clicks to send the same answer, but with THIS resident's apartment data auto-filled
-- Auto-fill variables: resident name, apartment number, m², current tariff, calculated amount (price x m²), previous amount, difference, date of last change
-- Optional: attach relevant law citations or charter quotes
+### Week 3: AI Layer
+- Interaction log per resident (manual entry + auto-log from sent messages)
+- Smart reply templates with variable auto-fill
+- AI-suggested reply based on message content + resident history
+- Delayed send feature
+- Resident context panel (full history visible when composing a message)
 
-**Delayed send feature:**
-- Chairman quickly drafts reply from templates
-- Sets delay (e.g., send at 21:00)
-- Resident thinks it was carefully considered after hours of research
-- Psychological hack, costs nothing to build
+### Week 4: Meetings + Voting
+- Meeting creation with agenda
+- Invitation send (email + SMS reminder 24h before)
+- Written decision procedure (kirjalik otsus) — fully digital voting with deadline
+- Attendance tracking + quorum auto-calculation (based on m² shares)
+- Vote counting (m²-weighted)
+- Auto-generated protocol PDF
+- Protocol archive
 
-**Why:** Pavel's idea. Galina's pain with endless repetitive questions. Key insight from Pavel: residents won't self-serve or read FAQs — the tool should help the chairman respond faster, not redirect residents.
-
-### Priority 4: Filtered Mass Messaging (Announcements)
-
-Replace the paper notice on the stairwell wall.
-
-**Features:**
-- Create announcement -> choose recipients by filter:
-  - All residents
-  - Specific stairwell / entrance
-  - Specific floor
-  - By apartment size (e.g., only 2-room apartments)
-  - By custom criteria
-- Auto-fill per resident: name, apartment data, calculated amounts
-- Example: "Repair fund changes: [price] x [your m²] = [total]. Was: [old amount]. Difference: [+/-]"
-- Delivery: email + in-app notification
-- Read receipts — chairman sees who opened it, who didn't
-- For those who didn't read: one-click "resend" or "send as SMS" fallback
-- Announcement archive — resident can never say "I didn't know"
-
-**Why:** Galina Medvedovskaja, Igor Matskevits. Universal need confirmed by multiple chairmen.
-
-### Priority 5: Meeting Invitations + Reminders + Protocol Generation
-
-**Before the meeting:**
-- Chairman creates agenda items in the system
-- Each item has a type: informational / vote required / election
-- For vote items: chairman pre-fills the motion (e.g., "Raise repair fund from €0.40 to €0.50 per m²")
-- Invitations go out automatically with agenda
-- Reminder 24h before (email + SMS)
-
-**During the meeting (minimal input):**
-- Attendance: check off who showed up -> auto-calculate quorum (based on m² shares)
-- Per agenda item: tap For / Against / Abstained counts
-- Optional: one text field for key discussion notes
-
-**After the meeting:**
-- System auto-generates protocol PDF:
-  - Date, location, start/end time
-  - Attendee list with apartment numbers and m²
-  - Quorum confirmation
-  - Each agenda item -> discussion summary -> vote result -> decision
-  - Signature lines
-- Chairman reviews, edits if needed, exports PDF
-- Sends to all residents via announcement system
-
-**Written decision procedure (kirjalik otsus) — the real MVP win:**
-- Chairman creates proposal + deadline (e.g., 14 days)
-- System sends to all residents via email
-- Resident clicks: For / Against / Abstain
-- System tracks votes, calculates m²-weighted results in real time
-- Deadline passes -> result auto-calculated -> protocol auto-generated
-- Zero meeting, zero physical presence, fully legal under Estonian law (2023 amendments)
-
-**Why:** Igor, Анатолий Евгеньевич, Galina ("general meetings are coming!"). Note: Korto already has basic voting — this needs to be better integrated into the full workflow, not a standalone feature.
-
-### Priority 6: Document Storage
-
-Simple but critical:
-- Upload and categorize: protocols, contracts, annual reports, building plans, charter
-- When chairman changes -> everything stays in the system, nothing lost
-- Residents can view (read-only) relevant documents
-- Solves the handover problem — new chairman gets full history on day 1
-
-### Priority 7: Maintenance Calendar
-
-- Recurring reminders: fire extinguisher check, elevator inspection, insurance renewal, cleaning contract end date
-- Log completed work with photos/notes
-- Simple contractor contacts list
+### Week 5: Documents + Polish + Deploy
+- Document storage with categories
+- Meter readings (resident submission via link, no login required)
+- Maintenance calendar with recurring reminders
+- Dashboard: unread messages, upcoming events, debtors summary
+- Mobile responsive polish
+- Deploy to production
 
 ---
 
 ## What Is NOT in MVP
 
-- No accounting/bookkeeping (let Merit/Korto handle that)
+- No accounting/bookkeeping (let Merit/Korto handle that — we are not replacing their accountant)
+- No mobile app (responsive web first — companion app is phase 2)
 - No hardware integration for barriers/locks (phase 2 — Pavel's request)
-- No mobile app (responsive web first, app later)
 - No payment processing (chairman uses existing invoicing tools)
-- No resident self-service portal (based on Pavel's feedback: residents won't use it)
+- No haldusfirma multi-building dashboard (phase 2)
 
 ---
 
 ## Key Product Insights from User Research
 
-1. **This is a CRM, not an accounting tool.** Every competitor is accounting-first. The gap is management-first.
-2. **Residents won't self-serve.** Don't build FAQ pages or knowledge bases for residents. Build tools that help the chairman answer faster.
-3. **Every KÜ is different.** Flexible custom lists (linked to apartment/resident) are essential. Rigid fixed fields will always miss something.
-4. **Written record is power.** Documentation of every interaction protects the chairman legally and shuts down "I didn't know" arguments.
-5. **Elderly residents are a reality.** SMS fallback and the option to print are necessary. But the tool's primary value is freeing chairman's time WITH digital-capable residents so they have time for face-to-face with the elderly.
-6. **The chairman is the buyer AND the sales force.** If the tool makes their life easier, they will push the general meeting to approve the expense.
+1. **This is a CRM, not an accounting tool.** Every competitor is accounting-first. The gap is management-first with AI context.
+2. **Residents won't self-serve.** Don't redirect residents to read FAQs. Give the chairman tools to respond faster.
+3. **Every KÜ is different.** Flexible custom lists are essential. Rigid fixed fields will always miss something.
+4. **Written record is power.** Every interaction logged = legal protection + proof = "I answered you on March 14."
+5. **Elderly residents are a reality.** SMS fallback, option to print. But the tool's value is freeing chairman time with digital-capable residents.
+6. **The chairman is buyer AND sales force.** If the tool makes their life easier, they push the general meeting to approve the expense.
+7. **Korto exists but has gaps.** People are asking for alternatives in Facebook groups despite Korto existing for 20 years. The gap is UX, onboarding complexity, and zero AI.
+8. **Pavel's insight:** Residents don't read FAQs or look up documents. They contact the chairman directly. The tool must help the chairman respond fast — not redirect residents.
 
 ---
 
@@ -183,13 +149,67 @@ Simple but critical:
 
 | Tool | Price | Focus | Weakness |
 |---|---|---|---|
-| Korto.ee | ~€0.10-0.30/apt/month | Accounting + resident portal | Legacy UI (since 2005), accounting-first |
-| Ühekatuseall | €0.20/apt/month (full) | Accounting + management | Complex, overwhelming for non-technical chairmen |
+| Korto.ee | ~€0.10-0.30/apt/month | Accounting + management | Since 2005, complex onboarding, no AI, accounting-first |
+| Ühekatuseall | €0.20/apt/month | Accounting + management | Complex, designed for power users |
 | Digimaja | Quote-based | Accounting for haldusfirmad | Targets management companies, not individual KÜs |
-| Profit KÜ | License-based | Desktop accounting | Desktop software, database corruption issues, ancient tech |
-| Merit KÜ | Part of Merit | Accounting with KÜ bolt-on | Accounting tool first, KÜ features are secondary |
+| Profit KÜ | License-based | Desktop accounting | Desktop-only, database corruption issues, ancient |
+| Merit KÜ | Part of Merit | Accounting with KÜ bolt-on | Accounting tool first, KÜ is secondary |
 
-**Our differentiator:** Management-first, not accounting-first. Resident CRM with context. Designed for a non-technical volunteer, not an accountant.
+**Our differentiator:** Management-first, AI-powered, simple onboarding, modern UX. Accounting is not our job.
+
+---
+
+## Go-to-Market Strategy
+
+Four channels that feed each other:
+
+### Channel 1: Facebook Groups (Now — Free)
+- Active thread already running with engaged chairmen
+- Pavel Zujev: first beta tester, has programming background, manages his own KÜ
+- Post progress updates as we build — community becomes invested
+- Target: 3-5 test KÜs from this group for validation
+
+### Channel 2: Developer Partnerships (Month 4+)
+**The idea:** Pre-install Majajuht in new buildings. When developer hands over a building to the new KÜ, the management system comes pre-loaded with all apartment data, m², and building info. The new chairman gets access on day one, no setup needed.
+
+**Why this works:**
+- New KÜ has zero existing habits or tool loyalty
+- Developer looks professional — modern digital handover
+- Marketing angle for developer: "Smart building management included"
+- Zero cost to developer — we give 6 months free, then KÜ pays at €0.30/apt/month
+- For us: pre-loaded data, 100% adoption rate, zero CAC
+
+**Who to approach (not construction companies — they build and leave):**
+- **Property developers (arendajad):** Merko Ehitus, YIT Eesti, Bonava, Hepsor, Endover, Fund Ehitus, Pro Kapital, Lumi Capital — start with smaller ones first
+- **Haldusfirmad handling new building handovers:** Kvatro, Stell, FORUS, Onest Haldus
+- **Volume:** ~50-80 new KÜs formed per year in Estonia from new construction
+
+**The pitch to developers:**
+> "When you hand over the building, the new KÜ gets a ready-to-use management platform with all apartment data already loaded. Your buyers see a professional digital building from day one. Costs you nothing — we charge the KÜ €0.30/apartment/month after 6 months free."
+
+**Condition:** Approach only after working MVP with real users and a live demo. A demo with real building data closes this deal — a PowerPoint doesn't.
+
+### Channel 3: EKYL Partnership (Month 4+)
+- 1,400 member KÜs — direct access to chairmen who already pay for membership
+- Options: "recommended tool" status on website, demo at training seminars, member discount, affiliate revenue share (10-15%)
+- Approach only after 5-10 real paying KÜs as proof
+
+### Channel 4: Haldusfirmad Multi-Building Dashboard (Month 6+)
+- Companies like Kvatro manage 22,000+ apartments — they need a different tool than a single KÜ
+- Multi-building portfolio view, bulk communications, unified resident search across all buildings
+- B2B pricing: €200-500/month per management company
+- Korto is built per-KÜ — no proper multi-building management layer exists
+
+---
+
+## Revenue Scenarios
+
+| Scenario | KÜs | Avg apartments | MRR | ARR |
+|---|---|---|---|---|
+| Year 1 (organic only) | 100 | 40 | €1,200 | €14,400 |
+| Year 1 + 1 developer deal (10 buildings) | 200 | 40 | €2,400 | €28,800 |
+| Year 2 (organic + 3 developer partners) | 500 | 40 | €6,000 | €72,000 |
+| Year 3 + haldusfirma deals | 1,000 KÜs + 3 firms | — | €15,000+ | €180,000+ |
 
 ---
 
@@ -197,27 +217,28 @@ Simple but critical:
 
 | Week | Deliverable |
 |---|---|
-| Week 1 | Auth, resident database (CRUD), resident cards, search, custom lists |
-| Week 2 | Announcements with filters, read receipts, email/SMS sending |
-| Week 3 | Smart replies with auto-fill, interaction history logging |
-| Week 4 | Meetings: create, invite, vote (kirjalik otsus), protocol generation |
-| Week 5 | Documents, maintenance calendar, dashboard, Polish UI, deploy |
+| Week 1 | Auth, building setup wizard, resident directory, search, custom lists |
+| Week 2 | Announcements with filters, email/SMS delivery, read receipts, archive |
+| Week 3 | Interaction log, smart reply templates, AI auto-fill, delayed send, context panel |
+| Week 4 | Meetings, kirjalik otsus voting, quorum calculation, protocol PDF generation |
+| Week 5 | Documents, meter readings, maintenance calendar, dashboard, deploy |
 
 ---
 
-## Go-to-Market
+## Phase 2 (Post-MVP)
 
-1. **Pavel Zujev** — first beta tester, already engaged, has programming background, manages his own KÜ + works with KÜs professionally (electronic locks/barriers)
-2. **Facebook group** — active thread with engaged chairmen, post development updates there
-3. **Sergei Nikonov's warning** — this is the 3rd-4th attempt at such a tool. A competitor is already testing in 2 KÜs. Speed matters.
-4. **EKYL partnership (month 3-4)** — 1,400 member KÜs. Approach once we have 5-10 real users. Options: "recommended tool" status, demo at training seminars, member discount, or affiliate revenue share.
+- **Resident companion mobile app** (Expo/React Native): submit meter readings, view invoices, vote, read announcements, report issues. Chairman manages via web, residents use mobile.
+- **Haldusfirma multi-building dashboard:** manage 50-200 buildings from one view
+- **Hardware integrations:** barriers, electronic locks, gate remotes (Pavel's request)
+- **Smart-ID / Mobile-ID integration** for legally binding digital protocol signatures
 
 ---
 
 ## Open Questions
 
-- Sergei mentioned a competitor already testing in 2 KÜs — who is it? What are they building?
-- Smart-ID / Mobile-ID integration for meeting protocols — needed for MVP or phase 2?
-- Integration with existing accounting tools (Korto, Merit) — API available?
-- GDPR considerations for storing resident personal data
-- Pavel's hardware integration (locks, barriers) — which systems are most common in Estonia? What APIs exist?
+- Sergei mentioned a competitor already testing in 2 KÜs — who is it?
+- Smart-ID / Mobile-ID for protocol signatures — MVP or phase 2?
+- GDPR: what personal data can we store about residents (ID codes, contact info)? Need legal clarity.
+- Which developers to approach first — who has the most new buildings completing in 2026?
+- Pavel's hardware integrations — which barrier/lock systems are most common in Estonian new buildings? What APIs exist?
+- Should accounting integration (read-only Korto/Merit data) be in MVP or phase 2?
